@@ -14,18 +14,6 @@ pipeline {
         maven 'maven3'
     }
     stages {
-        stage('Fix Git Ownership') {
-            steps {
-                bat 'git config --global --add safe.directory E:/repos/fibonacci-ci-demo.git'
-            }
-        }
-        stage('Checkout') {
-            steps {
-                checkout([$class: 'GitSCM',
-                          branches: [[name: '*/main']],
-                          userRemoteConfigs: [[url: 'file:///E:/repos/fibonacci-ci-demo.git']]])
-            }
-        }
         stage('Build & Test') {
             steps {
                 bat 'mvn clean test'
