@@ -14,6 +14,21 @@ pipeline {
         maven 'maven3'
     }
     stages {
+    stage('Environment Diagnostics') {
+        steps {
+            bat '''
+                echo ==== JAVA ====
+                where java
+                java -version
+                echo JAVA_HOME=%JAVA_HOME%
+
+                echo ==== MAVEN ====
+                where mvn
+                mvn -version
+                echo MAVEN_HOME=%MAVEN_HOME%
+            '''
+        }
+    }
         stage('Build & Test') {
             steps {
                 bat 'mvn clean test'
